@@ -1,0 +1,7 @@
+2025-11-02 19:15:34,217 [INFO] Starting optimized reconstruction...
+2025-11-02 19:15:39,615 [INFO] Frames loaded: 261
+2025-11-02 19:15:39,616 [INFO] Computing similarity with window=20 for 261 frames.
+2025-11-02 19:15:43,700 [INFO] Total comparisons: 5010
+2025-11-02 22:24:34,109 [INFO] Similarity matrix computed.
+2025-11-02 22:24:34,132 [INFO] Order computed.
+2025-11-02 22:24:38,908 [INFO] Output saved: output_fast\reconstructed.mp4

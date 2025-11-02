@@ -1,0 +1,4 @@
+elapsed_seconds: 11344.63
+frames_used: 261
+window: 20
+fps: 30
