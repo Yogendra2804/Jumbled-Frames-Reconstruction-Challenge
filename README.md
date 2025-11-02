@@ -29,9 +29,9 @@ Make sure Python 3.8+ is installed.
 
 ```bash
 pip install -r requirements.txt
+
+```
 ✅ Directory Structure
-lua
-Copy code
 project/
 │
 ├── re_construct_optimized.py
@@ -48,44 +48,46 @@ project/
       ├── reconstruction_order.txt
       ├── reconstructed_video.mp4
       └── execution_summary.txt
-✅ Usage
+## ✅ Usage
+
 ▶️ Basic Command
-bash
-Copy code
+```
 python re_construct_optimized.py --input shuffled_test/jumbled_video.mp4 --outdir output_fast --fps 30
-✅ Modes (Recommended for Submission)
+```
+## ✅ Modes
+
 ⚡ Fast Mode — (Testing / Quick Runs)
 Histogram-only
 
 Useful for quick pipeline checks
 
-bash
-Copy code
+```
 python re_construct_optimized.py --mode fast
+```
+
 ✅ Balanced Mode — (Best Trade-off, Recommended for Final Submission)
 SSIM + Histogram
 
 Window size = 20
-
-bash
-Copy code
+```
 python re_construct_optimized.py --mode balanced --window 20
+```
+
 🎯 Accurate Mode — (Highest Similarity Score)
 Full SSIM
 
 Slowest but most accurate
-
-bash
-Copy code
+```
 python re_construct_optimized.py --mode accurate
-✅ Output Files
-File	Description
-reconstructed_video.mp4	Final reordered video
-reconstruction_order.txt	Ordered list of frame indices
-similarity_matrix.npy	(Optional) Saved similarity matrix
-execution_summary.txt	Processing time, settings used
+```
 
-✅ How It Works — Short Overview
+## ✅ Output Files
+reconstructed_video.mp4 ->	Final reordered video
+reconstruction_order.txt -> 	Ordered list of frame indices
+execution_summary.txt ->	Processing time, settings used
+
+
+## ✅ How It Works — Short Overview
 Extract all frames from the input jumbled video
 
 Downscale frames for faster processing
@@ -102,12 +104,11 @@ Rebuild final video using reordered frame indices
 
 Full technical explanation available in ALGORITHM.md.
 
-✅ Requirements
+## ✅ Requirements
 All dependencies are included in:
-
-Copy code
 requirements.txt
-✅ Notes
+
+## ✅ Notes
 Designed specifically for 10-second videos @ 30 fps (≈300 frames)
 
 Window size influences speed vs accuracy
@@ -116,5 +117,5 @@ Multi-processing drastically reduces runtime
 
 Balanced mode provides the best performance/accuracy ratio
 
-✅ Author
+## ✅ Author
 Submission for TEC-DIA — Jumbled Frames Reconstruction Challenge (Round 1)
