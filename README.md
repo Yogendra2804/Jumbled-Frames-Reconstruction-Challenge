@@ -62,7 +62,8 @@ python re_construct_optimized.py --input shuffled_test/jumbled_video.mp4 --outdi
 
 2. Fewer comparisons → Much faster
 
-3. ```
+3.
+   ```
    python re_construct_optimized.py --window 8 --workers 6
     ```
 
@@ -74,7 +75,8 @@ python re_construct_optimized.py --input shuffled_test/jumbled_video.mp4 --outdi
 
 3. Best trade-off between speed and accuracy
 
-4. ```
+4.
+   ```
    python re_construct_optimized.py --window 20 --workers 10
     ```
 
@@ -86,7 +88,8 @@ python re_construct_optimized.py --input shuffled_test/jumbled_video.mp4 --outdi
 
 3. Best reconstruction quality
 
-4. ```
+4.
+   ```
    python re_construct_optimized.py --window 30 --workers 12
     ```
 
