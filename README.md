@@ -88,21 +88,21 @@ execution_summary.txt ->	Processing time, settings used
 
 
 ## ✅ How It Works — Short Overview
-Extract all frames from the input jumbled video
+1. Extract all frames from the input jumbled video
 
-Downscale frames for faster processing
+2. Downscale frames for faster processing
 
-Compute similarity only within a local window (speed optimization)
+3. Compute similarity only within a local window (speed optimization)
 
-Create a similarity graph
+4. Create a similarity graph
 
-Choose starting frame based on lowest global similarity
+5. Choose starting frame based on lowest global similarity
 
-Apply Greedy Nearest-Neighbor ordering
+6. Apply Greedy Nearest-Neighbor ordering
 
-Rebuild final video using reordered frame indices
+7. Rebuild final video using reordered frame indices
 
-Full technical explanation available in ALGORITHM.md.
+-> Full technical explanation available in ALGORITHM.md.
 
 ## ✅ Requirements
 All dependencies are included in:
