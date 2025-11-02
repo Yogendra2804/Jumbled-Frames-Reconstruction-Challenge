@@ -1,128 +1,120 @@
-✅ README.md — Jumbled Frames Reconstruction Challenge
-Jumbled Frames Reconstruction — 10s Video @ 30 FPS
+# 🧩 Jumbled Frames Reconstruction — 10s Video @ 30 FPS
 
-This project reconstructs the correct temporal order of a jumbled 10-second video (300 frames @ 30 fps).
-The reconstruction uses visual similarity metrics, window-based optimization, and a greedy nearest-neighbor ordering strategy.
+This project reconstructs the correct temporal order of a **jumbled 10-second video**  
+(≈300 frames @ 30 fps).  
+The pipeline uses **similarity-based frame matching**, **local window optimization**, and a  
+**greedy nearest-neighbor ordering algorithm** to restore the original sequence.
 
-✅ Features
+---
 
-Frame extraction from input video
+## ✅ Features
 
-Multiple similarity metrics (SSIM, Histogram)
+- 🔍 **Frame extraction** from input video  
+- 📊 **Multiple similarity metrics** (SSIM + Histogram)  
+- ⚡ **Window-based similarity computation** for faster execution  
+- 🧵 **Multi-processing** for up to 10× speedup  
+- 🎛️ **Three reconstruction modes**:
+  - **Fast** → Histogram-only (very fast)
+  - **Balanced** → SSIM + Histogram + window=20 (**recommended**)
+  - **Accurate** → Full SSIM (highest similarity scores)
+- 🗂️ **Predictable runtime** based on mode  
+- 🎞️ **Final reordered video export**  
+- 📝 **Logging + execution summary** for evaluation  
 
-Window-based similarity computation for speed
+---
 
-Multi-processing support
+## ✅ Installation
 
-Three reconstruction modes:
+Make sure Python 3.8+ is installed.
 
-Fast (Histogram only)
-
-Balanced (SSIM + Histogram, window=20)
-
-Accurate (Full SSIM, highest similarity score)
-
-Predictable runtime (based on selected mode)
-
-Final reordered video export
-
-Logging + execution summary
-
-✅ Installation
+```bash
 pip install -r requirements.txt
-
 ✅ Directory Structure
+lua
+Copy code
 project/
-│   re_construct_optimized.py
-│   requirements.txt
-│   README.md
-│   ALGORITHM.md
+│
+├── re_construct_optimized.py
+├── README.md
+├── ALGORITHM.md
+├── requirements.txt
 │
 ├── shuffled_test/
-│      jumbled_video.mp4
+│     └── jumbled_video.mp4
 │
 └── output/
-       frames/
-       similarity_matrix.npy
-       reconstruction_order.txt
-       reconstructed_video.mp4
-       execution_summary.txt
-
+      ├── frames/
+      ├── similarity_matrix.npy
+      ├── reconstruction_order.txt
+      ├── reconstructed_video.mp4
+      └── execution_summary.txt
 ✅ Usage
-Basic Usage
+▶️ Basic Command
+bash
+Copy code
 python re_construct_optimized.py --input shuffled_test/jumbled_video.mp4 --outdir output_fast --fps 30
+✅ Modes (Recommended for Submission)
+⚡ Fast Mode — (Testing / Quick Runs)
+Histogram-only
 
-✅ Recommended Modes
-Fast Mode (Testing / Quick Runs)
+Useful for quick pipeline checks
 
-Histogram-only (very fast)
-
-Good for checking pipeline
-
-python re_construct_optimized.py --input shuffled_test/jumbled_video.mp4 --outdir output_fast --mode fast
-
-Balanced Mode (Final Submission Recommended)
-
+bash
+Copy code
+python re_construct_optimized.py --mode fast
+✅ Balanced Mode — (Best Trade-off, Recommended for Final Submission)
 SSIM + Histogram
 
 Window size = 20
 
-Best trade-off between accuracy and speed
-
+bash
+Copy code
 python re_construct_optimized.py --mode balanced --window 20
-
-Accurate Mode (Highest Similarity Score)
-
+🎯 Accurate Mode — (Highest Similarity Score)
 Full SSIM
 
-Perfect for final evaluation
+Slowest but most accurate
 
+bash
+Copy code
 python re_construct_optimized.py --mode accurate
+✅ Output Files
+File	Description
+reconstructed_video.mp4	Final reordered video
+reconstruction_order.txt	Ordered list of frame indices
+similarity_matrix.npy	(Optional) Saved similarity matrix
+execution_summary.txt	Processing time, settings used
 
-✅ Output
+✅ How It Works — Short Overview
+Extract all frames from the input jumbled video
 
-reconstructed_video.mp4 → Final reordered output video
+Downscale frames for faster processing
 
-execution_summary.txt → Total time, frame count, mode used
+Compute similarity only within a local window (speed optimization)
 
-reconstruction_order.txt → Ordered list of frame indices
+Create a similarity graph
 
-similarity_matrix.npy → Saved similarity matrix (optional)
+Choose starting frame based on lowest global similarity
 
-✅ How It Works (Short Overview)
+Apply Greedy Nearest-Neighbor ordering
 
-Extract frames
+Rebuild final video using reordered frame indices
 
-Downscale for faster processing
-
-Compute similarity between each frame and its neighbors (window-based)
-
-Build a similarity graph
-
-Pick a start-frame with lowest average similarity
-
-Greedy nearest-neighbor ordering
-
-Rebuild the video using new order
-
-Full explanation available in ALGORITHM.md.
+Full technical explanation available in ALGORITHM.md.
 
 ✅ Requirements
+All dependencies are included in:
 
-All dependencies are listed in:
-
+Copy code
 requirements.txt
-
 ✅ Notes
+Designed specifically for 10-second videos @ 30 fps (≈300 frames)
 
-Designed for 10s @ 30fps (≈300 frames)
+Window size influences speed vs accuracy
 
-Window size affects both speed & accuracy
+Multi-processing drastically reduces runtime
 
-Multiprocessing allows large speedups
-
-For best results, use balanced or accurate mode
+Balanced mode provides the best performance/accuracy ratio
 
 ✅ Author
-
-Submission for TEC-DIA Jumbled Frame Reconstruction (Round 1)
+Submission for TEC-DIA — Jumbled Frames Reconstruction Challenge (Round 1)
