@@ -74,10 +74,9 @@ python re_construct_optimized.py --input shuffled_test/jumbled_video.mp4 --outdi
 
 3. Best trade-off between speed and accuracy
 
-4.
-   ```
+4. ```
    python re_construct_optimized.py --window 20 --workers 10
-  ```
+    ```
 
 ✅ Accurate Mode (Slowest but Most Accurate)
 
@@ -89,7 +88,7 @@ python re_construct_optimized.py --input shuffled_test/jumbled_video.mp4 --outdi
 
 4. ```
    python re_construct_optimized.py --window 30 --workers 12
-   ```
+    ```
 
 ## ✅ Output Files
 reconstructed_video.mp4 ->	Final reordered video
