@@ -1,0 +1,7 @@
+Mode Used: Balanced (SSIM + Histogram)
+Window Size: 20
+Workers: 12
+Frames Loaded: 261 / 300
+Total Similarity Comparisons: 5010
+Total Time Taken: (fill after run finishes)
+Output Video: reconstructed_video.mp4
