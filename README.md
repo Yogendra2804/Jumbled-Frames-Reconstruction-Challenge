@@ -56,30 +56,40 @@ python re_construct_optimized.py --input shuffled_test/jumbled_video.mp4 --outdi
 ```
 ## ✅ Modes
 
-⚡ Fast Mode — (Testing / Quick Runs)
-Histogram-only
+⚡ ✅ Fast Mode (Testing / Debugging)
 
-Useful for quick pipeline checks
+1. Use small window
 
-```
-python re_construct_optimized.py --mode fast
-```
+2. Fewer comparisons → Much faster
 
-✅ Balanced Mode — (Best Trade-off, Recommended for Final Submission)
-SSIM + Histogram
+3. ```
+   python re_construct_optimized.py --window 8 --workers 6
+    ```
 
-Window size = 20
-```
-python re_construct_optimized.py --mode balanced --window 20
-```
+✅ Balanced Mode (Recommended for Submission)
 
-🎯 Accurate Mode — (Highest Similarity Score)
-Full SSIM
+1. Uses window=20
 
-Slowest but most accurate
-```
-python re_construct_optimized.py --mode accurate
-```
+2. SSIM + Histogram
+
+3. Best trade-off between speed and accuracy
+
+4.
+   ```
+   python re_construct_optimized.py --window 20 --workers 10
+  ```
+
+✅ Accurate Mode (Slowest but Most Accurate)
+
+1. Uses a large window
+
+2. More comparisons
+
+3. Best reconstruction quality
+
+4. ```
+   python re_construct_optimized.py --window 30 --workers 12
+   ```
 
 ## ✅ Output Files
 reconstructed_video.mp4 ->	Final reordered video
