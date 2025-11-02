@@ -1,140 +1,160 @@
-# 🧩 Jumbled Frames Reconstruction — 10s Video @ 30 FPS
+# 🧩 Jumbled Video Frame Reconstruction — 300 Frames (5s @ 60 FPS)
 
-This project reconstructs the correct temporal order of a **jumbled 10-second video**  
-(≈300 frames @ 30 fps).  
-The pipeline uses **similarity-based frame matching**, **local window optimization**, and a  
+This project reconstructs the correct temporal order of a **jumbled 300-frame video**  
+(≈5 seconds @ 60 fps).  
+The pipeline uses **SSIM + HSV Histogram similarity**, **window-based optimization**, and a  
 **greedy nearest-neighbor ordering algorithm** to restore the original sequence.
 
 ---
 
-## Drive Link 
+## ✅ Drive Link (Required for Evaluation)
 https://drive.google.com/drive/folders/16sAugEmChvkVtMbp52JPm1ZRHERbBkdd?usp=drive_link
 
+→ Please check the Drive folder for **input video**, **reconstructed output video**, and **sample runs**.  
+(GitHub cannot preview .mp4 videos.)
 
-->> Please Checkout the drive for sample videos and any further query. 
-
+---
 
 ## ✅ Features
 
 - 🔍 **Frame extraction** from input video  
-- 📊 **Multiple similarity metrics** (SSIM + Histogram)  
-- ⚡ **Window-based similarity computation** for faster execution  
-- 🧵 **Multi-processing** for up to 10× speedup  
-- 🎛️ **Three reconstruction modes**:
-  - **Fast** → Histogram-only (very fast)
-  - **Balanced** → SSIM + Histogram + window=20 (**recommended**)
-  - **Accurate** → Full SSIM (highest similarity scores)
-- 🗂️ **Predictable runtime** based on mode  
-- 🎞️ **Final reordered video export**  
-- 📝 **Logging + execution summary** for evaluation  
+- 📊 **Multiple similarity metrics** (SSIM + HSV Histogram)  
+- ⚡ **Window-based similarity computation** (massively faster than full O(N²))  
+- 🧵 **Multi-processing** for parallel computation  
+- 🎛️ **Adjustable reconstruction modes**  
+  - **Fast** → Histogram-only  
+  - **Balanced** → SSIM + Histogram (window=20) **(recommended)**  
+  - **Accurate** → Large window (highest similarity accuracy)  
+- 🎞 **Final reordered video output**  
+- 📝 **Logging + execution summary**  
 
 ---
 
 ## ✅ Installation
 
-Make sure Python 3.8+ is installed.
+Make sure Python **3.8+** is installed.
 
 ```bash
 pip install -r requirements.txt
+```
+
+---
+
+## ✅ Directory Structure
 
 ```
-✅ Directory Structure
 project/
 │
 ├── re_construct_optimized.py
+├── re_construct.py
+├── shuffle_frames.py
+│
 ├── README.md
-├── ALGORITHM.md
+├── Algorithm.md
 ├── requirements.txt
 │
 ├── shuffled_test/
 │     └── jumbled_video.mp4
 │
-└── output/
-      ├── frames/
-      ├── similarity_matrix.npy
-      ├── reconstruction_order.txt
-      ├── reconstructed_video.mp4
-      └── execution_summary.txt
+├── output_fast/
+│     ├── reconstructed.mp4
+│     ├── summary.txt
+│     └── frames/
+│
+└── Videos/
+      ├── Input_Sample.mp4
+      └── Reconstructed_Sample.mp4
+```
+
+---
+
 ## ✅ Usage
 
-▶️ Basic Command
+### ▶️ Basic Command
+```bash
+python re_construct_optimized.py --input shuffled_test/jumbled_video.mp4 --outdir output_fast --fps 60
 ```
-python re_construct_optimized.py --input shuffled_test/jumbled_video.mp4 --outdir output_fast --fps 30
-```
+
+---
+
 ## ✅ Modes
 
-⚡ ✅ Fast Mode (Testing / Debugging)
+### ⚡ Fast Mode (Testing / Debugging)
+- Small window  
+- Very fast  
+- Ideal for pipeline checks  
 
-1. Use small window
+```
+python re_construct_optimized.py --window 8 --workers 6
+```
 
-2. Fewer comparisons → Much faster
+---
 
-3.
-   ```
-   python re_construct_optimized.py --window 8 --workers 6
-    ```
+### ✅ Balanced Mode (Recommended for Submission)
+- Window = 20  
+- SSIM + Histogram  
+- Best **accuracy vs speed** ratio  
 
-✅ Balanced Mode (Recommended for Submission)
+```
+python re_construct_optimized.py --window 20 --workers 10
+```
 
-1. Uses window=20
+---
 
-2. SSIM + Histogram
+### 🎯 Accurate Mode (Maximum Precision)
+- Window = 30  
+- More comparisons  
+- Best reconstruction accuracy  
 
-3. Best trade-off between speed and accuracy
+```
+python re_construct_optimized.py --window 30 --workers 12
+```
 
-4.
-   ```
-   python re_construct_optimized.py --window 20 --workers 10
-    ```
-
-✅ Accurate Mode (Slowest but Most Accurate)
-
-1. Uses a large window
-
-2. More comparisons
-
-3. Best reconstruction quality
-
-4.
-   ```
-   python re_construct_optimized.py --window 30 --workers 12
-    ```
+---
 
 ## ✅ Output Files
 reconstructed_video.mp4 ->	Final reordered video
 reconstruction_order.txt -> 	Ordered list of frame indices
 execution_summary.txt ->	Processing time, settings used
 
+---
 
 ## ✅ How It Works — Short Overview
-1. Extract all frames from the input jumbled video
 
-2. Downscale frames for faster processing
+1. Extract frames from jumbled video  
+2. Downscale frames for fast comparison  
+3. Compute similarity within a **local window**  
+4. Build similarity matrix  
+5. Choose “start frame” using lowest similarity score  
+6. Apply **Greedy Nearest-Neighbor** ordering  
+7. Reassemble output video in predicted order  
 
-3. Compute similarity only within a local window (speed optimization)
+→ Full technical explanation is available in **Algorithm.md**
 
-4. Create a similarity graph
-
-5. Choose starting frame based on lowest global similarity
-
-6. Apply Greedy Nearest-Neighbor ordering
-
-7. Rebuild final video using reordered frame indices
-
--> Full technical explanation available in ALGORITHM.md.
+---
 
 ## ✅ Requirements
+
 All dependencies are included in:
+
+```
 requirements.txt
+```
+
+---
 
 ## ✅ Notes
-Designed specifically for 10-second videos @ 30 fps (≈300 frames)
 
-Window size influences speed vs accuracy
+- Designed for **300-frame** videos (5 seconds @ 60 fps)  
+- Window size heavily affects accuracy & runtime  
+- Multi-processing significantly speeds up similarity matrix computation  
+- Balanced mode is ideal for real evaluation conditions  
 
-Multi-processing drastically reduces runtime
-
-Balanced mode provides the best performance/accuracy ratio
+---
 
 ## ✅ Author
-Submission for TEC-DIA — Jumbled Frames Reconstruction Challenge (Round 1)
+
+**Yogendra Gupta**  
+Submission for **TEC-DIA — Jumbled Frames Reconstruction Challenge (Round 1)**  
+VIT Vellore  
+
